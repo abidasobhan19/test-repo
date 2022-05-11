@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "altaazej",
+    "name": "Altaazej",
     "slug": "altaazej",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
     ]
+    
   },
-  "name": "altaazej"
+  "name": "Altaazej"
 }

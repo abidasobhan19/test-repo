@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "695516979434",
+    "firebase_url": "https://instagramapp-48811.firebaseio.com",
+    "project_id": "instagramapp-48811",
+    "storage_bucket": "instagramapp-48811.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695516979434:android:1e0731c41a9aad8f99b793",
+        "android_client_info": {
+          "package_name": "com.altaazej"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEcTqyMt3ifa-XBEhnceflfSrybReRZNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695516979434-6k042g19vnvbcjjmnou7014k2kl6qfdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695516979434:android:f5af9d19175fcda199b793",
+        "android_client_info": {
+          "package_name": "com.dev.Altaazej"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695516979434-7c3c9330gcs6l6b6qg8ce435k0plt7sa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev.Altaazej",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEcTqyMt3ifa-XBEhnceflfSrybReRZNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695516979434-6k042g19vnvbcjjmnou7014k2kl6qfdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695516979434:android:9d094c4bef19813199b793",
+        "android_client_info": {
+          "package_name": "com.koddev.instagramtest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEcTqyMt3ifa-XBEhnceflfSrybReRZNQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695516979434-6k042g19vnvbcjjmnou7014k2kl6qfdk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
