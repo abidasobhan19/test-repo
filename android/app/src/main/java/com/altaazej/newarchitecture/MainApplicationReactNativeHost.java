@@ -1,4 +1,4 @@
-package com.altaazej.newarchitecture;
+package com.dev.altaazej.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.altaazej.BuildConfig;
-import com.altaazej.newarchitecture.components.MainComponentsRegistry;
-import com.altaazej.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.dev.altaazej.BuildConfig;
+import com.dev.altaazej.newarchitecture.components.MainComponentsRegistry;
+import com.dev.altaazej.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

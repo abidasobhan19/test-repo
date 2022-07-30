@@ -1,7 +1,10 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState, useRef } from "react";
+import { WebView } from "react-native-webview";
+import { getUserAgent, getBrand } from "react-native-device-info";
 import DeviceInfo from "react-native-device-info";
 import RNAndroidLocationEnabler from "react-native-android-location-enabler";
+import LocalStorage from "@react-native-async-storage/async-storage";
 import {
   StyleSheet,
   Text,
@@ -9,17 +12,21 @@ import {
   PermissionsAndroid,
   BackHandler,
   ActivityIndicator,
-  Dimensions,
   SafeAreaView,
+  Alert,
+  Dimensions,
 } from "react-native";
 import { ViewPropTypes } from "deprecated-react-native-prop-types";
-import messaging from "@react-native-firebase/messaging";
-import { WebView } from "react-native-webview";
 import CookieManager from "@react-native-cookies/cookies";
-import LocalStorage from "@react-native-async-storage/async-storage";
-import * as Location from "expo-location";
-
+import messaging from "@react-native-firebase/messaging";
 const Main = () => {
+  const [user, setUser] = useState();
+  let brand = DeviceInfo.getUserAgent().then((res) => {
+    var res = res.replace(/Version(.....)/, "");
+    setUser(res);
+  });
+
+  const useWebKit = true;
   const windowWidth = Dimensions.get("window").width;
   const windowHeight = Dimensions.get("window").height;
   const webView = useRef(null);
@@ -37,37 +44,38 @@ const Main = () => {
       // return;
     }
 
-    let location = await Location.getCurrentPositionAsync({});
-    setLocation(location);
-  };
-
-  const checkgpseable = async () => {
-    RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({
-      interval: 10000,
-      fastInterval: 5000,
-    })
-      .then((data) => {})
-      .catch((err) => {});
+    let location = await Location.getCurrentPositionAsync({}).catch((err) => {
+      console.log(err);
+    });
   };
 
   useEffect(() => {
-    // _checkPermission();
+    test();
     getFCMToken();
   }, []);
+
+  const test = () => {
+    CookieManager.get("https://www.altaazej.ae").then((res) => {
+      console.log("CookieManager.getAll from webkit-view =>", res);
+    });
+  };
 
   const getFCMToken = () => {
     messaging()
       .getToken()
       .then((token) => {
-        CookieManager.set("https://www.altaazej.ae", {
+        const newCookie: = {
           name: "FCM_TOKEN",
-          value: token,
-          domain: "altaazej.ae",
-          version: "1",
-          expires: "2022-05-30T12:30:00.00-05:00",
-        }).then((done) => {
-          LocalStorage.setItem("FCM_Token", token);
-        });
+            value: token,
+            domain: "altaazej.ae",
+            version: "1",
+            expires: "2040-05-30T12:30:00.00-05:00",
+        };
+        
+        CookieManager.set('http://example.com', newCookie, useWebKit)
+          .then((res) => {
+            console.log('CookieManager.set from webkit-view =>', res);
+          });
       });
   };
 
@@ -97,6 +105,16 @@ const Main = () => {
       } catch(e) {
         console.log('checkout page detected error')
       }
+
+      try {
+        document.getElementById('mo_btn-google').onclick = function(){
+          window.ReactNativeWebView.postMessage("login")
+        }
+      } catch(e) {
+        console.log('checkout page detected error')
+      }
+      
+      alert(user)
       
   
   `;
@@ -112,7 +130,7 @@ const Main = () => {
     if (canGoBack === true) {
       if (webView.current) {
         webView.current.goBack();
-        return true; // PREVENT DEFAULT BEHAVIOUR (EXITING THE APP)
+        return true;
       }
     } else {
       BackHandler.exitApp();
@@ -122,7 +140,6 @@ const Main = () => {
   });
 
   const ActivityIndicatorElement = () => {
-    //making a view to show to while loading the webpage
     return (
       <View
         style={{
@@ -155,9 +172,6 @@ const Main = () => {
         <WebView
           ref={webView}
           javaScriptEnabled={true}
-          // domStorageEnabled={true}
-          // startInLoadingState={true}
-          // renderLoading={ ActivityIndicatorElement }
           source={{ uri: "https://altaazej.ae/" }}
           javaScriptCanOpenWindowsAutomatically={true}
           onNavigationStateChange={(e) => {
@@ -169,7 +183,7 @@ const Main = () => {
             onmessage(event);
           }}
           injectedJavaScript={jsCode}
-          userAgent={DeviceInfo.getUserAgent() + " - MYAPPNAME - android "}
+          userAgent={user}
           onLoadStart={() => setVisible(true)}
           onLoad={() => setVisible(false)}
         />

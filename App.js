@@ -1,6 +1,10 @@
-import { StatusBar } from "expo-status-bar";
+import {
+  setStatusBarNetworkActivityIndicatorVisible,
+  StatusBar,
+} from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import NetInfo from "@react-native-community/netinfo";
+import { ReactNativeFirebase } from "@react-native-firebase/app";
 import {
   Platform,
   StyleSheet,
@@ -11,8 +15,21 @@ import {
 import * as SplashScreen from "expo-splash-screen";
 import Main from "./src/main";
 import Message from "./src/internetmsg";
+import { firebase } from "@react-native-firebase/app";
 const App = () => {
   const [InternetPermission, setInternetPermission] = useState();
+  const firebaseConfig = {
+    apiKey: "AIzaSyAx1GtUFFA5H0twI5YXqGkFSHSDtYWvzzw",
+    authDomain: "instagramapp-48811.firebaseapp.com",
+    databaseURL: "https://instagramapp-48811.firebaseio.com",
+    projectId: "instagramapp-48811",
+    storageBucket: "instagramapp-48811.appspot.com",
+    messagingSenderId: "695516979434",
+    appId: "1:695516979434:web:71dbfb40ce90ad1e99b793",
+    measurementId: "G-0HBSW2JSZV",
+  };
+
+  firebase.initializeApp(firebaseConfig);
 
   SplashScreen.preventAutoHideAsync()
     .then((result) =>
@@ -33,17 +50,11 @@ const App = () => {
   }, []);
   const CheckConnectivity = () => {
     // For Android devices
-    if (Platform.OS === "android") {
-      NetInfo.fetch().then((state) => {
-        setInternetPermission(state.isConnected);
-      });
-    } else {
-      // For iOS devices
-      NetInfo.isConnected.addEventListener(
-        "connectionChange",
-        this.handleFirstConnectivityChange
-      );
-    }
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      console.log("Connection type", state.type);
+      setStatusBarNetworkActivityIndicatorVisible;
+      setInternetPermission(state.isConnected);
+    });
   };
   return <>{InternetPermission === true ? <Main /> : <Message />}</>;
 };
