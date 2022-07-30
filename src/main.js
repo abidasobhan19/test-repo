@@ -72,7 +72,7 @@ const Main = () => {
             expires: "2040-05-30T12:30:00.00-05:00",
         };
         
-        CookieManager.set('http://example.com', newCookie, useWebKit)
+        CookieManager.set('https://www.altaazej.ae', newCookie, useWebKit)
           .then((res) => {
             console.log('CookieManager.set from webkit-view =>', res);
           });
